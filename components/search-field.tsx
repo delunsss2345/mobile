@@ -1,9 +1,10 @@
 import { TextInput, View } from "react-native";
 
-const SearchField = () => {
+const SearchField = ({onChangeText , placeholder } : {onChangeText : () => void , placeholder : string} ) => {
     return  <View >
-    <TextInput
-      placeholder="Nhập thông tin..."
+    <TextInput 
+    onChangeText={onChangeText} 
+      placeholder={placeholder}
       placeholderTextColor="#888"
     />
   </View>

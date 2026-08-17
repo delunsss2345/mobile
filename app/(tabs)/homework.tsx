@@ -19,7 +19,9 @@ export default function Homework() {
       > 
 
     <ProfileCard />
-    <SearchField />
+    <SearchField onChangeText={() => {
+        console.log("Dang thay doi")
+    }} placeholder='Nhap ho va ten' />
 
     <StudentCard />
 
