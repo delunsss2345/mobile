@@ -1,14 +1,29 @@
-import { View } from "react-native";
-import InfoRow from "./info-row";
+import { StyleSheet, Text, View } from 'react-native';
 
-const StudentCard = () => {
-    return <>
-    <View>
-          <InfoRow name="Pham Thanh Huy" />
-          <InfoRow name="DH19KTPM" />
-          <InfoRow name="23630661" />
-        </View>
-    </>
+import InfoRow from './info-row';
+
+export default function StudentCard() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Thông tin sinh viên</Text>
+      <InfoRow label="Email" value="huy.23630661@sv.iuh.edu.vn" />
+      <InfoRow label="Lớp" value="DH19KTPM" />
+    </View>
+  );
 }
 
-export default StudentCard ;
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#EEF6FF',
+    borderColor: '#9CCBFA',
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 10,
+    padding: 16,
+  },
+  title: {
+    color: '#172033',
+    fontSize: 17,
+    fontWeight: '700',
+  },
+});

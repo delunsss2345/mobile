@@ -1,76 +1,78 @@
-import React from 'react';
-import {
-    ActivityIndicator,
-    Pressable,
-    Text,
-    ViewStyle,
-} from 'react-native';
+import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
-interface PressibleButtonProps {
+type PressableButtonProps = {
   text: string;
   textLoading: string;
-  handleSubmit: () => void;
-  isSubmitting: boolean;
+  onPress: () => void;
+  isLoading: boolean;
   disabled?: boolean;
-  style?: ViewStyle;
-}
+  style?: StyleProp<ViewStyle>;
+};
 
-export default function PressibleButton({
+export default function PressableButton({
   text,
   textLoading,
-  handleSubmit,
-  isSubmitting,
+  onPress,
+  isLoading,
   disabled = false,
   style,
-}: PressibleButtonProps) {
-  const isDisabled = isSubmitting || disabled;
+}: PressableButtonProps) {
+  const isDisabled = isLoading || disabled;
 
   return (
     <Pressable
-      onPress={handleSubmit}
-      disabled={isDisabled}
+      accessibilityHint={`Thực hiện hành động ${text.toLowerCase()}`}
       accessibilityLabel={text}
       accessibilityRole="button"
-      accessibilityState={{
-        disabled: isDisabled,
-        busy: isSubmitting,
-      }}
-      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+      accessibilityState={{ busy: isLoading, disabled: isDisabled }}
+      disabled={isDisabled}
+      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+      onPress={onPress}
       style={({ pressed }) => [
-        {
-          minHeight: 48,
-          minWidth: 48,
-          paddingVertical: 14,
-          paddingHorizontal: 20,
-          borderRadius: 12,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-          backgroundColor: isDisabled ? '#9CA3AF' : '#2563EB',
-          opacity: isDisabled ? 0.6 : pressed ? 0.85 : 1,
-        },
+        styles.button,
         style,
-      ]}
-    >
-      {({ pressed }) => (
-        <>
-          {isSubmitting ? (
+        pressed && !isDisabled && styles.pressed,
+        isDisabled && styles.disabled,
+      ]}>
+      {({ pressed }) =>
+        isLoading ? (
+          <>
             <ActivityIndicator color="#FFFFFF" size="small" />
-          ) : (
-            <Text
-              style={{
-                color: '#FFFFFF',
-                fontSize: 16,
-                fontWeight: '600',
-                textAlign: 'center',
-                opacity: pressed && !isDisabled ? 0.9 : 1,
-              }}
-            >
-              {text}
-            </Text>
-          )}
-        </>
-      )}
+            <Text style={styles.text}>{textLoading}</Text>
+          </>
+        ) : (
+          <Text style={styles.text}>{pressed ? `Đang nhấn ${text}` : text}</Text>
+        )
+      }
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    minHeight: 48,
+    minWidth: 48,
+    backgroundColor: '#2563EB',
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  pressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.97 }],
+  },
+  disabled: {
+    backgroundColor: '#98A2B3',
+    opacity: 0.72,
+  },
+  text: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+});

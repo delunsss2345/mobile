@@ -1,26 +1,36 @@
-import { StyleSheet, View } from "react-native";
-import Avatar from "./avatar";
-import StudentCard from "./cart-student";
+import { StyleSheet, Text, View } from 'react-native';
+
+import Avatar from './avatar';
+
+export default function ProfileCard() {
+  return (
+    <View style={styles.container}>
+      <Avatar />
+      <View style={styles.content}>
+        <Text style={styles.name}>Phạm Thanh Huy</Text>
+        <Text style={styles.studentId}>Mã SV: 23630661</Text>
+      </View>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-    view: {
-      display:'flex' ,
-      gap:20,
-      flexDirection:'row',
-      alignItems:'center' 
-    },
-  });
-  
-
-const ProfileCard = () => {
-  return (
-    <>
-      <View style={styles.view}>
-        <Avatar />
-        <StudentCard />
-      </View>
-    </>
-  );
-};
-
-export default ProfileCard ; 
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 18,
+  },
+  content: {
+    flex: 1,
+    gap: 6,
+  },
+  name: {
+    color: '#172033',
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  studentId: {
+    color: '#667085',
+    fontSize: 15,
+  },
+});
