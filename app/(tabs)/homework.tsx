@@ -1,4 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import ActionButton from '@/components/action-button';
+import StudentCard from '@/components/cart-student';
+import Header from '@/components/header';
+import ProfileCard from '@/components/profile-card';
+import SearchField from '@/components/search-field';
+import { ScrollView, StyleSheet } from 'react-native';
 
 
 export default function Homework() {
@@ -8,10 +13,18 @@ export default function Homework() {
         backgroundColor : "#fff"
     }}
       >
-    <View >
-          <Text>Tiêu Đề Wireframe</Text>
-        </View>
-      
+    <Header />
+    <ScrollView
+        alwaysBounceVertical={false}
+      > 
+
+    <ProfileCard />
+    <SearchField />
+
+    <StudentCard />
+
+    <ActionButton text='Save profile' />
+    </ScrollView>
     </ScrollView>
   );
 }
