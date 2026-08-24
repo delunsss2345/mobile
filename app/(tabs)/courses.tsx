@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Alert, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Course, courses } from '@/data/courses';
 import CourseRow from '@/components/course-row';
+import { ListEmptyComponent } from '@/components/list-empty';
+import { ListHeaderComponents } from '@/components/list-header';
 
 export default function CourseTab() {
   const [search, setSearch] = useState('');
@@ -19,21 +21,19 @@ export default function CourseTab() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search"
-        value={search}
-        onChangeText={setSearch}
-      />
+      
       <FlatList
         data={filteredCourses}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CourseRow course={item} onPress={openCourse} />
         )}
+        ListHeaderComponent={
+          <ListHeaderComponents setQuery={(value) => setSearch(value)} filteredCourses={courses} query={search} />
+        }
         contentContainerStyle={styles.list}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>Không tìm thấy khóa học</Text>
+          <ListEmptyComponent />
         }
       />
     </View>

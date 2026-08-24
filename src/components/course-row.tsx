@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Course } from '../data/courses';
+import { ItemSeparatorComponent } from './item-speartor';
 
 interface CourseRowProps {
   course: Course;
@@ -21,6 +22,7 @@ export default function CourseRow({ course, onPress }: CourseRowProps) {
         <Text style={styles.category}>{course.category}</Text>
         <Text style={styles.studentCount}>{course.students} sinh viên</Text>
       </View>
+      <ItemSeparatorComponent />
     </Pressable>
   );
 }

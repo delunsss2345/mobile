@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native"
 
 type ListHeaderParams = {
     query : string , 
-    setQuery : () => void , 
+    setQuery : (text : string) => void , 
     filteredCourses : Course[] 
 }
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
     } , 
     resultText : {
-        
+
     }
 })
 

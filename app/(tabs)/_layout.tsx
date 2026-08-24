@@ -14,21 +14,14 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Trang chủ',
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🏠</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>Home</Text>,
         }}
       />
       <Tabs.Screen
         name="courses"
         options={{
           title: 'Khóa học',
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>📚</Text>,
-        }}
-      />
-      <Tabs.Screen
-        name="particala"
-        options={{
-          title: 'ParticalA',
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🔬</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>Course</Text>,
         }}
       />
     </Tabs>
