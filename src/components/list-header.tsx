@@ -7,21 +7,33 @@ type ListHeaderParams = {
     filteredCourses : Course[] 
 }
 const styles = StyleSheet.create({
-    header : {
-
-    } , 
-    screenTitle : {
-
-    } , 
-    subtitle : {
-
-    } ,
-    searchInput : {
-
-    } , 
-    resultText : {
-
-    }
+    searchInput: {
+        backgroundColor: '#fff',
+        marginHorizontal: 16,
+        marginTop: 12,
+        marginBottom: 4,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        borderRadius: 10,
+        fontSize: 15,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+      },
+      header: {
+        marginHorizontal: 16,
+        marginTop: 12,
+        marginBottom: 4,
+      } , 
+      screenTitle: {
+        marginHorizontal: 16,
+        marginTop: 12,
+        marginBottom: 4,
+      } , 
+      subtitle : {
+        marginHorizontal: 16,
+        marginTop: 12,
+        marginBottom: 4,
+      }
 })
 
 export const ListHeaderComponents = (params : ListHeaderParams) => {
@@ -41,7 +53,7 @@ export const ListHeaderComponents = (params : ListHeaderParams) => {
       style={styles.searchInput}
     />
 
-    <Text style={styles.resultText}>
+    <Text>
       Tìm thấy {filteredCourses.length} khóa học
     </Text>
   </View>

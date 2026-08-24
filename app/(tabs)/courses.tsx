@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Alert, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Course, courses } from '@/data/courses';
 import CourseRow from '@/components/course-row';
@@ -8,9 +8,11 @@ import { ListHeaderComponents } from '@/components/list-header';
 export default function CourseTab() {
   const [search, setSearch] = useState('');
 
-  const filteredCourses = courses.filter((course) =>
-    course.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredCourses = useMemo(() => {
+    return  courses.filter((course) =>
+      course.title.toLowerCase().includes(search.toLowerCase())
+    )
+  }, [search])
 
   const openCourse = (course: Course) => {
     Alert.alert(
@@ -21,7 +23,6 @@ export default function CourseTab() {
 
   return (
     <View style={styles.container}>
-      
       <FlatList
         data={filteredCourses}
         keyExtractor={(item) => item.id}
@@ -29,7 +30,7 @@ export default function CourseTab() {
           <CourseRow course={item} onPress={openCourse} />
         )}
         ListHeaderComponent={
-          <ListHeaderComponents setQuery={(value) => setSearch(value)} filteredCourses={courses} query={search} />
+          <ListHeaderComponents setQuery={(text) => setSearch(text)} filteredCourses={courses} query={search} />
         }
         contentContainerStyle={styles.list}
         ListEmptyComponent={
