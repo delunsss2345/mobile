@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function HomeTab() {
+export default function ParticalATab() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chào mừng đến SmartCampus</Text>
-      <Text style={styles.subtitle}>Chọn tab bên dưới để bắt đầu</Text>
+      <Text style={styles.title}>ParticalA</Text>
+      <Text style={styles.text}>Sắp ra mắt</Text>
     </View>
   );
 }
@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '600',
     marginBottom: 8,
   },
-  subtitle: {
+  text: {
     fontSize: 14,
     color: '#888',
   },

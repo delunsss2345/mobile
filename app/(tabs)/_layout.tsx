@@ -1,36 +1,36 @@
 import { Tabs } from 'expo-router';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Text } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
+        tabBarActiveTintColor: '#208AEF',
+        tabBarInactiveTintColor: '#888',
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarButton: HapticTab,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Hồ sơ',
-          tabBarIcon: ({ color }) => <IconSymbol color={color} name="house.fill" size={28} />,
+          title: 'Trang chủ',
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🏠</Text>,
         }}
       />
       <Tabs.Screen
-        name="interaction"
+        name="courses"
         options={{
-          title: 'Tương tác',
-          tabBarIcon: ({ color }) => <IconSymbol color={color} name="paperplane.fill" size={28} />,
+          title: 'Khóa học',
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>📚</Text>,
         }}
       />
-      <Tabs.Screen name="homework" options={{ href: null }} />
-      <Tabs.Screen name="explore" options={{ href: null }} />
+      <Tabs.Screen
+        name="particala"
+        options={{
+          title: 'ParticalA',
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>🔬</Text>,
+        }}
+      />
     </Tabs>
   );
 }
