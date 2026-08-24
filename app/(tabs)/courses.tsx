@@ -4,6 +4,7 @@ import { Course, courses } from '@/data/courses';
 import CourseRow from '@/components/course-row';
 import { ListEmptyComponent } from '@/components/list-empty';
 import { ListHeaderComponents } from '@/components/list-header';
+import { ListViewComponent } from '@/components/list-view';
 
 export default function CourseTab() {
   const [search, setSearch] = useState('');
@@ -22,22 +23,7 @@ export default function CourseTab() {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={filteredCourses}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CourseRow course={item} onPress={openCourse} />
-        )}
-        ListHeaderComponent={
-          <ListHeaderComponents setQuery={(text) => setSearch(text)} filteredCourses={courses} query={search} />
-        }
-        contentContainerStyle={styles.list}
-        ListEmptyComponent={
-          <ListEmptyComponent />
-        }
-      />
-    </View>
+    <ListViewComponent setSearch={setSearch} search={search} openComponents={openCourse} filtereds={filteredCourses}  />
   );
 }
 
