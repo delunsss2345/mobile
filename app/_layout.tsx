@@ -6,6 +6,9 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { UserContext } from './(tabs)/share-user';
 
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import '@/global.css';
+
 export const unstable_settings = {
   anchor: '(tabs)',
 };
@@ -14,7 +17,9 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
- <UserContext.Provider value={{ name: 'Nguyễn Văn An' }}>
+ 
+    <GluestackUIProvider mode="dark">
+      <UserContext.Provider value={{ name: 'Nguyễn Văn An' }}>
     <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
       <Stack>
   
@@ -24,6 +29,8 @@ export default function RootLayout() {
       <StatusBar style="auto" />
     </ThemeProvider>
 </UserContext.Provider>
+    </GluestackUIProvider>
+  
 
   );
 }
