@@ -24,9 +24,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="form"
         options={{
-          title: 'Explore',
+          title: 'Form',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+        }}
+      />
+        <Tabs.Screen
+        name="check-status"
+        options={{
+          title: 'Check Status',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
