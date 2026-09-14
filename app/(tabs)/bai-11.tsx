@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, Text, TextInput, View } from "react-native";
-
+import { Alert, FlatList, Text, TextInput, View } from "react-native";
 
 export interface ProductDimensions {
   width: number;
@@ -11,14 +10,14 @@ export interface ProductDimensions {
 export interface ProductReview {
   rating: number;
   comment: string;
-  date: string; 
+  date: string;
   reviewerName: string;
   reviewerEmail: string;
 }
 
 export interface ProductMeta {
-  createdAt: string; 
-  updatedAt: string; 
+  createdAt: string;
+  updatedAt: string;
   barcode: string;
   qrCode: string;
 }
@@ -48,53 +47,64 @@ export interface Product {
   thumbnail: string;
 }
 
-
-
-const Bai11 = () => {
-    const [data, setData] = useState<Product[] | null>() ; 
-    const [query , setQuery] = useState<string | null>('') ; 
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch(`https://dummyjson.com/products/search?q=${query}&limit=10`) ; 
-                if(!response.ok) throw Error('Fetch failed') ; 
-
-                const {products} = await response.json();
-
-                setData(products as Product[]) ; 
-            }
-            catch(error) {
-                console.log(error) ; 
-            }  
-        } 
-        fetchProducts() ; 
-    }, [query])
-
-    return (
-       <>
-       <TextInput placeholder="Nhap" onChangeText={setQuery} />
-        <FlatList 
-            data={data} 
-            renderItem={({ item }) => (
-            <View >
-                <Text style={
-                    {
-                        color: "blue"
-                    }
-                } >{item.title}</Text>
-                <Text style={
-                    {
-                        color: "blue"
-                    }
-                } >{item.discountPercentage}</Text>
-            </View>
-            )} 
-            keyExtractor={item =>String(item.id)}
-        />
-       </>
-        );
-
+export class CustomError {
+  error: string;
+  message: string;
+  constructor(error: string, message: string) {}
 }
 
-export default Bai11 ; 
+const Bai11 = () => {
+  const [data, setData] = useState<Product[] | null>();
+  const [query, setQuery] = useState<string | null>("");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          `https://dummyjson.com/products/search?q=${query}&limit=10`,
+        );
+        if (!response.ok) throw Error("Fetch failed");
+
+        const { products } = await response.json();
+
+        setData(products as Product[]);
+      } catch (error) {
+        const customError = new CustomError(
+          String(error),
+          error instanceof Error ? error.message : String(error),
+        );
+
+        Alert.alert(customError.error, customError.message);
+      }
+    };
+    fetchProducts();
+  }, [query]);
+
+  return (
+    <>
+      <TextInput placeholder="Nhap" onChangeText={setQuery} />
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <View>
+            <Text
+              style={{
+                color: "blue",
+              }}>
+              {item.title}
+            </Text>
+            <Text
+              style={{
+                color: "blue",
+              }}>
+              {item.discountPercentage}
+            </Text>
+          </View>
+        )}
+        keyExtractor={(item) => String(item.id)}
+      />
+    </>
+  );
+};
+
+export default Bai11;
