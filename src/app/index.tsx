@@ -1,11 +1,7 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Redirect } from "expo-router";
 
 
 export default function HomeScreen() {
-  return (
-      <SafeAreaView>
-        
-      </SafeAreaView>
-  );
+  return <Redirect href="/(tabs)/home" />;
 }
 
