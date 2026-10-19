@@ -1,100 +1,87 @@
-import { Link } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
+import {
+  ActivityIndicator,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-export default function IndexScreen() {
+import { BookCard } from "@/components/book-card";
+import { books } from "@/data/books";
+import { useAuth } from "@/store/auth-store";
+
+export default function HomeScreen() {
+  const { isHydrating, isLoggedIn, user, logout } = useAuth();
+
+  if (isHydrating)
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+
+  const openCheckout = () =>
+    router.push(
+      isLoggedIn
+        ? "/checkout"
+        : { pathname: "/login", params: { returnTo: "checkout" } },
+    );
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Flexbox Exercises</Text>
-        <Text style={styles.subtitle}>Chọn bài tập để xem kết quả</Text>
+    <SafeAreaView style={styles.safe}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.topRow}>
+          <View>
+            <Text style={styles.greeting}>
+              {isLoggedIn ? `Hi, ${user?.name}` : "Find your next read"}
+            </Text>
+            <Text style={styles.subtitle}>Stories worth staying in for.</Text>
+          </View>
+          {isLoggedIn ? (
+            <Pressable onPress={() => void logout()}>
+              <Text style={styles.actionText}>Log out</Text>
+            </Pressable>
+          ) : (
+            <Pressable onPress={() => router.push("/login")}>
+              <Text style={styles.actionText}>Log in</Text>
+            </Pressable>
+          )}
+        </View>
 
-        <Link href="/home-work-1" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 1: Header Bar</Text>
-          </Pressable>
-        </Link>
+        <Pressable style={styles.checkout} onPress={openCheckout}>
+          <Text style={styles.checkoutText}>Go to checkout</Text>
+        </Pressable>
 
-        <Link href="/home-work-1-1" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 1.1: Category Chips</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-work-2" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 2: Book Grid</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-3-1" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 3.1: Discount Badge</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-3-2" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 3.2: Floating Cart</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-4-1" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 4.1: BookStore Home</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-4-2" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 4.2: Book Detail</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-5-1" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 5.1: Bottom Tab Bar</Text>
-          </Pressable>
-        </Link>
-
-        <Link href="/home-5-2" asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Exercise 5.2: Cart Screen</Text>
-          </Pressable>
-        </Link>
+        <Text style={styles.sectionTitle}>Featured books</Text>
+        {books.map((book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#fff",
+  safe: { flex: 1 },
+  loading: { flex: 1, alignItems: "center", justifyContent: "center" },
+  content: { padding: 16 },
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 16,
   },
-  container: {
-    padding: 24,
-    paddingBottom: 40,
-    gap: 12,
-  },
-  title: {
-    marginTop: 24,
-    color: "#000",
-    fontSize: 28,
-  },
-  subtitle: {
-    marginBottom: 12,
-    color: "#666",
-    fontSize: 15,
-  },
-  button: {
-    paddingHorizontal: 18,
-    paddingVertical: 16,
-    borderRadius: 14,
+  greeting: { fontSize: 20, fontWeight: "bold" },
+  subtitle: { color: "gray" },
+  actionText: { fontWeight: "bold" },
+  checkout: {
     backgroundColor: "#000",
+    padding: 12,
+    alignItems: "center",
+    marginBottom: 16,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-  },
+  checkoutText: { color: "#fff", fontWeight: "bold" },
+  sectionTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 8 },
 });
