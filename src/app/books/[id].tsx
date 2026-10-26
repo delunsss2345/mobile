@@ -14,22 +14,21 @@ import {
 
 import { RatingStars } from "@/components/rating-stars";
 import { books } from "@/data/books";
-import { reviewService } from "@/services/review-service";
 import { useAuth } from "@/store/auth-store";
-import { Review } from "@/types";
+import { Comment } from "@/types";
 
 export default function BookDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const book = books.find((item) => item.id === id) ?? books[0];
   const { isLoggedIn, user } = useAuth();
-  const [reviews, setReviews] = useState<Review[]>(book.reviews);
+  const [reviews, setReviews] = useState<Comment[]>(book.reviews);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const average = useMemo(
     () =>
-      reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length,
+      reviews.reduce((sum, review) => sum + 0, 0) / reviews.length,
     [reviews],
   );
 
@@ -37,30 +36,30 @@ export default function BookDetailScreen() {
     (item) => item.category === book.category && item.id !== book.id,
   );
 
-  const submitReview = async () => {
-    if (!rating || !comment.trim()) {
-      Alert.alert(
-        "Complete your review",
-        "Choose a star rating and add a comment.",
-      );
-      return;
-    }
-    setSubmitting(true);
-    try {
-      const review = await reviewService.create(book.id, {
-        userName: user?.name ?? "Reader",
-        rating,
-        comment: comment.trim(),
-      });
-      setReviews((current) => [review, ...current]);
-      setRating(0);
-      setComment("");
-    } catch {
-      Alert.alert("Review not sent", "Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  // const submitReview = async () => {
+  //   if (!rating || !comment.trim()) {
+  //     Alert.alert(
+  //       "Complete your review",
+  //       "Choose a star rating and add a comment.",
+  //     );
+  //     return;
+  //   }
+  //   setSubmitting(true);
+  //   try {
+  //     const review = await reviewService.create(book.id, {
+  //       userName: user?.name ?? "Reader",
+  //       rating,
+  //       comment: comment.trim(),
+  //     });
+  //     setReviews((current) => [review, ...current]);
+  //     setRating(0);
+  //     setComment("");
+  //   } catch {
+  //     Alert.alert("Review not sent", "Please try again.");
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -98,14 +97,14 @@ export default function BookDetailScreen() {
               placeholder="What did you think?"
               textAlignVertical="top"
             />
-            <Pressable
+            {/* <Pressable
               disabled={submitting}
               style={[styles.submit, submitting && styles.disabled]}
               onPress={() => void submitReview()}>
               <Text style={styles.submitText}>
                 {submitting ? "Posting…" : "Post review"}
               </Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         ) : (
           <Pressable
@@ -115,7 +114,7 @@ export default function BookDetailScreen() {
           </Pressable>
         )}
 
-        {reviews.map((review) => (
+        {/* {reviews.map((review) => (
           <View key={review.id} style={styles.review}>
             <View style={styles.reviewTop}>
               <Text style={styles.boldText}>{review.userName}</Text>
@@ -123,7 +122,7 @@ export default function BookDetailScreen() {
             </View>
             <Text>{review.comment}</Text>
           </View>
-        ))}
+        ))} */}
 
         {related.length > 0 && (
           <>
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
     height: 140,
     backgroundColor: "#000",
     alignItems: "center",
-    justify: "center",
+    // justify: "center",
   },
   coverText: { color: "#fff", fontWeight: "bold" },
   heroText: { flex: 1, paddingLeft: 12, justifyContent: "center" },
@@ -221,7 +220,7 @@ const styles = StyleSheet.create({
   reviewTop: {
     flexDirection: "row",
     alignItems: "center",
-    justify: "space-between",
+    // justify: "space-between",
     marginBottom: 4,
   },
   related: { width: 110, marginRight: 12 },
@@ -229,7 +228,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "#000",
     alignItems: "center",
-    justify: "center",
+    // justify: "center",
     marginBottom: 4,
   },
   boldText: { fontWeight: "bold" },

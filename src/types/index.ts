@@ -4,18 +4,17 @@ export type User = {
   email: string;
 };
 
-export type Review = {
+export type Comment = {
   id: string;
-  userName: string;
-  rating: number;
-  comment: string;
+  text: string;
+  bookId: string;
 };
 
-export type Book = {
+export type BookResponse = {
   id: string;
   title: string;
   author: string;
-  category: string;
-  description: string;
-  reviews: Review[];
+  views: number;
+  image: string;
+  avatar: string;
 };

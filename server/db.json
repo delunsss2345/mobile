@@ -17,7 +17,7 @@
       "avatar": "https://pravatar.cc"
     }
   ],
-   "comments": [
+  "comments": [
     {
       "id": "1",
       "text": "Cuốn sách thay đổi cuộc đời mình!",
@@ -34,6 +34,18 @@
       "name": "Nguyen Van A",
       "email": "a@example.com",
       "id": "q3RFD4_n-kU"
+    },
+    {
+      "email": "huy@gmail.com",
+      "password": "$2a$10$EP7mROxnR3ooYhbbbkouRuJ8JwBuNSnIjVF89Ra.SoEL/kU2kCMK2",
+      "name": "huy",
+      "id": "1l1qI4g"
+    },
+    {
+      "email": "hu2y@gmail.com",
+      "password": "$2a$10$7WMP1qw3RD8XRhxm8HUYuOO/eIGDLWpMYa1Cp9NpskXnFOWwuKRF6",
+      "name": "huy123",
+      "id": "u2BKKuS"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

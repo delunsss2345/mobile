@@ -2,12 +2,10 @@ import { Link } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { RatingStars } from "@/components/rating-stars";
-import { Book } from "@/types";
+import { BookResponse } from "@/types";
 
-export function BookCard({ book }: { book: Book }) {
-  const average =
-    book.reviews.reduce((sum, review) => sum + review.rating, 0) /
-    book.reviews.length;
+export function BookCard({ book }: { book: BookResponse }) {
+  const average =0
 
   return (
     <Link href={{ pathname: "/books/[id]", params: { id: book.id } }} asChild>
