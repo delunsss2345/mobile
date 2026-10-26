@@ -1,6 +1,13 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+<<<<<<< HEAD
     "strict": true
+=======
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+>>>>>>> features/tuan7
   }
 }
